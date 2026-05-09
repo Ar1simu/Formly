@@ -1,0 +1,80 @@
+:root {
+  --bg: #0b0b0d;
+  --card: #141416;
+  --gold: #d4af37;
+  --text: #ffffff;
+  --muted: #b8b8b8;
+  --border: #222;
+}
+
+body {
+  margin: 0;
+  font-family: 'Cardo', serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  color: var(--gold);
+  font-weight: bold;
+  font-size: 22px;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: white;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+nav button:hover {
+  color: var(--gold);
+}
+
+.page {
+  display: none;
+  padding: 40px;
+}
+
+.page.active {
+  display: block;
+}
+
+.hero {
+  text-align: center;
+}
+
+.hero h1 {
+  color: var(--gold);
+  font-size: 48px;
+}
+
+.card {
+  background: var(--card);
+  padding: 16px;
+  border: 1px solid var(--border);
+  margin-top: 15px;
+  border-radius: 12px;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--gold);
+}
+
+.hidden {
+  display: none;
+}
+
+button {
+  margin-top: 6px;
+  cursor: pointer;
+}
