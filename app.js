@@ -5,7 +5,9 @@ function showPage(pageId) {
   document.getElementById(pageId).classList.add("active");
 }
 
-/* BUDGET */
+/* =========================
+   BUDGET (UPDATED 700 → 2500)
+========================= */
 function updateBudget() {
   let ticket = +document.getElementById("ticketSlider").value;
   let outfit = +document.getElementById("outfitSlider").value;
@@ -22,20 +24,83 @@ function updateBudget() {
   document.getElementById("totalCost").innerText = "$" + total;
 
   let range =
-    total <= 150 ? "Low Range" :
-    total <= 300 ? "Standard Range" :
-    total <= 600 ? "High Range" :
+    total <= 300 ? "Low Range" :
+    total <= 700 ? "Standard Range" :
+    total <= 1500 ? "High Range" :
     "Luxury Range";
 
   document.getElementById("budgetRange").innerText = range;
 }
 
-/* OUTFIT INFO */
-function toggleInfo(id) {
-  document.getElementById(id).classList.toggle("hidden");
+/* =========================
+   OUTFIT BUILDER (NEW LOGIC)
+========================= */
+
+const outfitData = {
+  casual: [
+    "Button-up + chinos + loafers",
+    "Polo + slim chinos + sneakers",
+    "Sweater + jeans + clean shoes",
+    "Overshirt + t-shirt + chinos",
+    "Minimal hoodie + dark jeans",
+    "Oxford shirt + relaxed pants"
+  ],
+  semiformal: [
+    "Blazer + button-up + chinos",
+    "Turtleneck + dress pants",
+    "Sweater vest + shirt + slacks",
+    "Light blazer + loafers combo",
+    "Monochrome fitted outfit",
+    "Pattern shirt + neutral pants"
+  ],
+  formal: [
+    "Full suit + tie + dress shoes",
+    "Tux-style blazer + slacks",
+    "Three-piece suit setup",
+    "Black suit + white shirt combo",
+    "Slim formal suit + polished shoes",
+    "Modern fitted formal set"
+  ]
+};
+
+function generateOutfit() {
+  const type = document.getElementById("outfitType").value;
+  const list = outfitData[type];
+
+  const result = list[Math.floor(Math.random() * list.length)];
+
+  document.getElementById("outfitResult").innerText =
+    "Recommended Outfit: " + result;
 }
 
-/* PREDICTION SYSTEM */
+/* =========================
+   ETIQUETTE
+========================= */
+
+function showEtiquette() {
+  document.getElementById("etiquetteBox").classList.toggle("hidden");
+}
+
+/* =========================
+   SETTINGS (SIMPLE / ADVANCED)
+========================= */
+
+let advancedMode = false;
+
+function toggleMode() {
+  advancedMode = !advancedMode;
+
+  const elements = document.querySelectorAll(".advanced");
+
+  elements.forEach(el => {
+    el.style.display = advancedMode ? "block" : "none";
+  });
+}
+
+/* =========================
+   PREDICTION SYSTEM (UPDATED)
+========================= */
+
 function getPrediction() {
   const now = new Date();
   const month = now.getMonth();
@@ -52,11 +117,33 @@ function getPrediction() {
   return `Homecoming: Jan 16, 2027 | ${diff} days remaining | Typical window: 90–100 days pre-event`;
 }
 
-/* INIT */
+/* =========================
+   LIVE COUNTDOWN
+========================= */
+
+function updateCountdown() {
+  const target = new Date("2027-01-16T00:00:00");
+  const now = new Date();
+
+  const diff = target - now;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  document.getElementById("countdown").innerText =
+    days + " days until Homecoming";
+}
+
+/* =========================
+   INIT
+========================= */
+
 window.onload = function () {
   updateBudget();
+  updateCountdown();
 
   document.getElementById("predictionText").innerText = getPrediction();
   document.getElementById("fallFormal").innerText = "Predicted: ~Fall season window";
   document.getElementById("prom").innerText = "Predicted: Spring season window";
+
+  setInterval(updateCountdown, 86400000); // daily update
 };
