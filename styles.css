@@ -5,76 +5,216 @@
   --text: #ffffff;
   --muted: #b8b8b8;
   --border: #222;
+  --hover: #1c1c1f;
 }
+
+/* =========================
+   BASE APP LAYOUT
+========================= */
 
 body {
   margin: 0;
   font-family: 'Cardo', serif;
   background: var(--bg);
   color: var(--text);
+  line-height: 1.5;
 }
+
+/* =========================
+   NAVBAR (APP STYLE)
+========================= */
 
 .nav {
   display: flex;
   justify-content: space-between;
-  padding: 18px 24px;
+  align-items: center;
+  padding: 14px 24px;
   border-bottom: 1px solid var(--border);
+  background: rgba(11, 11, 13, 0.9);
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(8px);
+  z-index: 10;
 }
 
 .logo {
   color: var(--gold);
   font-weight: bold;
   font-size: 22px;
+  letter-spacing: 1px;
 }
 
+/* nav buttons feel like app tabs */
 nav button {
-  background: none;
-  border: none;
-  color: white;
-  margin-left: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text);
+  margin-left: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: 0.2s ease;
+  font-size: 14px;
 }
 
 nav button:hover {
   color: var(--gold);
+  background: var(--hover);
+  border-color: var(--border);
 }
+
+/* =========================
+   PAGE SYSTEM
+========================= */
 
 .page {
   display: none;
-  padding: 40px;
+  padding: 32px 18px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .page.active {
   display: block;
 }
 
+/* =========================
+   HERO
+========================= */
+
 .hero {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .hero h1 {
   color: var(--gold);
-  font-size: 48px;
+  font-size: 52px;
+  margin-bottom: 10px;
 }
+
+.hero p {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+/* =========================
+   CARDS (APP UI CORE)
+========================= */
 
 .card {
   background: var(--card);
-  padding: 16px;
+  padding: 18px;
   border: 1px solid var(--border);
-  margin-top: 15px;
-  border-radius: 12px;
+  margin-top: 16px;
+  border-radius: 14px;
+  transition: 0.2s ease;
 }
+
+.card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* headings inside cards */
+.card h2,
+.card h3 {
+  margin-top: 0;
+  color: var(--gold);
+}
+
+/* muted text */
+p {
+  color: var(--text);
+}
+
+/* =========================
+   BUTTONS (APP STYLE)
+========================= */
+
+button {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--hover);
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-family: inherit;
+}
+
+button:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* =========================
+   SLIDERS (BUDGET SYSTEM)
+========================= */
 
 input[type="range"] {
   width: 100%;
   accent-color: var(--gold);
+  margin-top: 6px;
 }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px 0;
+}
+
+/* =========================
+   OUTFIT SELECT MENU
+========================= */
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+}
+
+/* =========================
+   HIDDEN / TOGGLES
+========================= */
 
 .hidden {
   display: none;
 }
 
-button {
-  margin-top: 6px;
-  cursor: pointer;
+/* =========================
+   ADVANCED MODE (SETTINGS)
+========================= */
+
+.advanced {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 10px;
+  padding: 10px;
+  border-left: 2px solid var(--gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+/* =========================
+   SMALL UX IMPROVEMENTS
+========================= */
+
+/* make values feel like UI stats */
+#ticketValue,
+#outfitValue,
+#foodValue,
+#extrasValue {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* smoother transitions for whole app */
+* {
+  box-sizing: border-box;
+  transition: background 0.2s ease, border 0.2s ease;
 }
