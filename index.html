@@ -19,13 +19,14 @@
     <button onclick="showPage('events')">Events</button>
     <button onclick="showPage('budget')">Budget</button>
     <button onclick="showPage('outfits')">Outfits</button>
-    <button onclick="showPage('about')">About</button>
+    <button onclick="showPage('etiquette')">Etiquette</button>
+    <button onclick="showPage('settings')">Settings</button>
   </nav>
 </header>
 
 <main>
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 <section id="home" class="page active">
   <div class="hero">
     <h1>Formly</h1>
@@ -36,9 +37,19 @@
     <h2>📅 Prediction System</h2>
     <p id="predictionText"></p>
   </div>
+
+  <div class="card">
+    <h2>⏳ Countdown to Homecoming</h2>
+    <p id="countdown"></p>
+  </div>
+
+  <div class="card advanced" style="display:none;">
+    <h2>📊 Live System Status</h2>
+    <p>Formly systems running normally.</p>
+  </div>
 </section>
 
-<!-- EVENTS -->
+<!-- ================= EVENTS ================= -->
 <section id="events" class="page">
   <h2>Events</h2>
 
@@ -58,26 +69,26 @@
   </div>
 </section>
 
-<!-- BUDGET -->
+<!-- ================= BUDGET ================= -->
 <section id="budget" class="page">
   <h2>Budget Planner</h2>
 
   <div class="card">
 
     <h3>Ticket</h3>
-    <input type="range" min="0" max="150" value="40" id="ticketSlider" oninput="updateBudget()">
+    <input type="range" min="0" max="2500" value="40" id="ticketSlider" oninput="updateBudget()">
     <p id="ticketValue">$40</p>
 
     <h3>Outfit</h3>
-    <input type="range" min="0" max="300" value="120" id="outfitSlider" oninput="updateBudget()">
+    <input type="range" min="0" max="2500" value="120" id="outfitSlider" oninput="updateBudget()">
     <p id="outfitValue">$120</p>
 
     <h3>Food</h3>
-    <input type="range" min="0" max="100" value="25" id="foodSlider" oninput="updateBudget()">
+    <input type="range" min="0" max="2500" value="25" id="foodSlider" oninput="updateBudget()">
     <p id="foodValue">$25</p>
 
     <h3>Extras</h3>
-    <input type="range" min="0" max="150" value="30" id="extrasSlider" oninput="updateBudget()">
+    <input type="range" min="0" max="2500" value="30" id="extrasSlider" oninput="updateBudget()">
     <p id="extrasValue">$30</p>
 
     <hr>
@@ -89,44 +100,56 @@
   </div>
 </section>
 
-<!-- OUTFITS -->
+<!-- ================= OUTFITS (REVAMPED) ================= -->
 <section id="outfits" class="page">
-  <h2>Outfits</h2>
+  <h2>Outfit Builder</h2>
 
   <div class="card">
-    <h3>Casual (Business Casual)</h3>
-    <button onclick="toggleInfo('casualInfo')">i</button>
-    <p id="casualInfo" class="hidden">
-      Men: button-ups, chinos, loafers<br>
-      Women: blouses, skirts, dress pants
-    </p>
-  </div>
 
-  <div class="card">
-    <h3>Semi-Formal</h3>
-    <button onclick="toggleInfo('semiInfo')">i</button>
-    <p id="semiInfo" class="hidden">
-      Men: dress shirts, slacks, optional blazer<br>
-      Women: dresses, heels, elegant wear
-    </p>
-  </div>
+    <h3>Select Style</h3>
+    <select id="outfitType">
+      <option value="casual">Casual (Business Casual)</option>
+      <option value="semiformal">Semi-Formal</option>
+      <option value="formal">Formal</option>
+    </select>
 
-  <div class="card">
-    <h3>Formal</h3>
-    <button onclick="toggleInfo('formalInfo')">i</button>
-    <p id="formalInfo" class="hidden">
-      Men: suits, ties<br>
-      Women: gowns, formal dresses
-    </p>
+    <button onclick="generateOutfit()">Generate Outfit</button>
+
+    <p id="outfitResult"></p>
+
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="page">
-  <h2>About</h2>
+<!-- ================= ETIQUETTE ================= -->
+<section id="etiquette" class="page">
+  <h2>Etiquette</h2>
 
   <div class="card">
-    <p>This page is currently empty.</p>
+    <button onclick="showEtiquette()">Show Rules</button>
+
+    <div id="etiquetteBox" class="hidden">
+      <p>
+        • Be respectful to others and staff<br>
+        • Dress appropriately for the venue<br>
+        • Don’t stress—enjoy the night<br>
+        • Be mindful of time and plans<br><br>
+        Good luck and have an amazing night :)
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SETTINGS ================= -->
+<section id="settings" class="page">
+  <h2>Settings</h2>
+
+  <div class="card">
+    <button onclick="toggleMode()">Toggle Advanced Mode</button>
+
+    <p class="advanced" style="display:none;">
+      Advanced Mode Enabled:<br>
+      Extra UI elements + system diagnostics visible.
+    </p>
   </div>
 </section>
 
