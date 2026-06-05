@@ -118,7 +118,7 @@ function getPrediction() {
 }
 
 /* =========================
-   LIVE COUNTDOWN
+   LIVE COUNTDOWN (HOME PAGE)
 ========================= */
 
 function updateCountdown() {
@@ -134,6 +134,17 @@ function updateCountdown() {
 }
 
 /* =========================
+   NEW: REAL EVENT DATES
+========================= */
+
+function getEventDates() {
+  return {
+    fallDance: "September 26, 2026",   // US Fall Dance (Fall Formal)
+    prom: "April 17, 2027"
+  };
+}
+
+/* =========================
    INIT
 ========================= */
 
@@ -141,9 +152,16 @@ window.onload = function () {
   updateBudget();
   updateCountdown();
 
+  const dates = getEventDates();
+
   document.getElementById("predictionText").innerText = getPrediction();
-  document.getElementById("fallFormal").innerText = "Predicted: ~Fall season window";
-  document.getElementById("prom").innerText = "Predicted: Spring season window";
+
+  // UPDATED REAL EVENTS
+  document.getElementById("fallFormal").innerText =
+    "US Fall Dance: " + dates.fallDance;
+
+  document.getElementById("prom").innerText =
+    "Prom: " + dates.prom;
 
   setInterval(updateCountdown, 86400000); // daily update
 };
