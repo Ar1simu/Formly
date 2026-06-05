@@ -44,7 +44,6 @@ body {
   letter-spacing: 1px;
 }
 
-/* nav buttons feel like app tabs */
 nav button {
   background: transparent;
   border: 1px solid transparent;
@@ -95,11 +94,10 @@ nav button:hover {
 
 .hero p {
   color: var(--muted);
-  font-size: 16px;
 }
 
 /* =========================
-   CARDS (APP UI CORE)
+   CARDS
 ========================= */
 
 .card {
@@ -116,20 +114,14 @@ nav button:hover {
   transform: translateY(-2px);
 }
 
-/* headings inside cards */
 .card h2,
 .card h3 {
   margin-top: 0;
   color: var(--gold);
 }
 
-/* muted text */
-p {
-  color: var(--text);
-}
-
 /* =========================
-   BUTTONS (APP STYLE)
+   BUTTONS
 ========================= */
 
 button {
@@ -150,7 +142,7 @@ button:hover {
 }
 
 /* =========================
-   SLIDERS (BUDGET SYSTEM)
+   SLIDERS
 ========================= */
 
 input[type="range"] {
@@ -159,14 +151,8 @@ input[type="range"] {
   margin-top: 6px;
 }
 
-hr {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 20px 0;
-}
-
 /* =========================
-   OUTFIT SELECT MENU
+   SELECT MENU
 ========================= */
 
 select {
@@ -180,7 +166,7 @@ select {
 }
 
 /* =========================
-   HIDDEN / TOGGLES
+   HIDDEN SYSTEM
 ========================= */
 
 .hidden {
@@ -188,10 +174,11 @@ select {
 }
 
 /* =========================
-   ADVANCED MODE (SETTINGS)
+   ADVANCED MODE FIX
 ========================= */
 
 .advanced {
+  display: none;
   color: var(--muted);
   font-size: 14px;
   margin-top: 10px;
@@ -201,10 +188,13 @@ select {
 }
 
 /* =========================
-   SMALL UX IMPROVEMENTS
+   SMALL UI POLISH
 ========================= */
 
-/* make values feel like UI stats */
+p {
+  color: var(--text);
+}
+
 #ticketValue,
 #outfitValue,
 #foodValue,
@@ -213,7 +203,7 @@ select {
   font-size: 14px;
 }
 
-/* smoother transitions for whole app */
+/* smoother feel */
 * {
   box-sizing: border-box;
   transition: background 0.2s ease, border 0.2s ease;
