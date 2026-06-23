@@ -118,6 +118,15 @@ nav button:hover {
 .card h3 {
   margin-top: 0;
   color: var(--gold);
+ 
+  #countdown,
+#fallCountdown {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+}
 }
 
 /* =========================
