@@ -33,15 +33,20 @@
     <p>Plan school dances before they happen.</p>
   </div>
 
-  <div class="card">
-    <h2>📅 Prediction System</h2>
-    <p id="predictionText"></p>
-  </div>
+<div class="card">
+  <h2>📅 Prediction System</h2>
+  <p id="predictionText"></p>
+</div>
 
-  <div class="card">
-    <h2>⏳ Countdown to Homecoming</h2>
-    <p id="countdown"></p>
-  </div>
+<div class="card">
+  <h2>⏳ Homecoming Countdown</h2>
+  <p id="countdown"></p>
+</div>
+
+<div class="card">
+  <h2>🎃 US Fall Dance Countdown</h2>
+  <p id="fallCountdown"></p>
+</div>
 
   <div class="card advanced">
     <h2>📊 Live System Status</h2>
@@ -76,7 +81,7 @@
   <div class="card">
 
     <h3>Ticket</h3>
-    <input type="range" min="0" max="2500" value="40" id="ticketSlider" oninput="updateBudget()">
+    <input type="range" min="0" max="200" value="40" id="ticketSlider" oninput="updateBudget()">
     <p id="ticketValue">$40</p>
 
     <h3>Outfit</h3>
@@ -84,11 +89,11 @@
     <p id="outfitValue">$120</p>
 
     <h3>Food</h3>
-    <input type="range" min="0" max="2500" value="25" id="foodSlider" oninput="updateBudget()">
+    <input type="range" min="0" max="1000" value="25" id="foodSlider" oninput="updateBudget()">
     <p id="foodValue">$25</p>
 
     <h3>Extras</h3>
-    <input type="range" min="0" max="2500" value="30" id="extrasSlider" oninput="updateBudget()">
+    <input type="range" min="0" max="1000" value="30" id="extrasSlider" oninput="updateBudget()">
     <p id="extrasValue">$30</p>
 
     <hr>
