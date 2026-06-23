@@ -118,15 +118,20 @@ nav button:hover {
 .card h3 {
   margin-top: 0;
   color: var(--gold);
- 
-  #countdown,
-#fallCountdown {
-  font-size: 20px;
+}
+
+/* =========================
+   COUNTDOWN STYLING (FIXED + ADDED)
+========================= */
+
+#countdown,
+#fallCountdown,
+#promCountdown {
+  font-size: 22px;
   font-weight: bold;
   color: var(--gold);
-  letter-spacing: 0.5px;
-  margin-top: 8px;
-}
+  letter-spacing: 0.6px;
+  margin-top: 10px;
 }
 
 /* =========================
@@ -183,7 +188,7 @@ select {
 }
 
 /* =========================
-   ADVANCED MODE FIX
+   ADVANCED MODE
 ========================= */
 
 .advanced {
@@ -197,13 +202,14 @@ select {
 }
 
 /* =========================
-   SMALL UI POLISH
+   TEXT POLISH
 ========================= */
 
 p {
   color: var(--text);
 }
 
+/* slider value text */
 #ticketValue,
 #outfitValue,
 #foodValue,
@@ -212,7 +218,10 @@ p {
   font-size: 14px;
 }
 
-/* smoother feel */
+/* =========================
+   GLOBAL SMOOTHNESS
+========================= */
+
 * {
   box-sizing: border-box;
   transition: background 0.2s ease, border 0.2s ease;
