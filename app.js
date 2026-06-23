@@ -6,7 +6,7 @@ function showPage(pageId) {
 }
 
 /* =========================
-   BUDGET (UPDATED 700 → 2500)
+   BUDGET
 ========================= */
 function updateBudget() {
   let ticket = +document.getElementById("ticketSlider").value;
@@ -33,7 +33,7 @@ function updateBudget() {
 }
 
 /* =========================
-   OUTFIT BUILDER (NEW LOGIC)
+   OUTFITS
 ========================= */
 
 const outfitData = {
@@ -82,7 +82,7 @@ function showEtiquette() {
 }
 
 /* =========================
-   SETTINGS (SIMPLE / ADVANCED)
+   SETTINGS
 ========================= */
 
 let advancedMode = false;
@@ -98,7 +98,7 @@ function toggleMode() {
 }
 
 /* =========================
-   PREDICTION SYSTEM (UPDATED)
+   PREDICTION
 ========================= */
 
 function getPrediction() {
@@ -118,7 +118,7 @@ function getPrediction() {
 }
 
 /* =========================
-   LIVE COUNTDOWN (HOME PAGE)
+   COUNTDOWN SYSTEM (FIXED)
 ========================= */
 
 function updateCountdown(id, date, label) {
@@ -128,23 +128,17 @@ function updateCountdown(id, date, label) {
   const diff = target - now;
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-  document.getElementById(id).innerText =
-    days + " days until " + label;
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.innerText = `${days} days until ${label}`;
+}
+
+/* wrappers */
+function updateAllCountdowns() {
   updateCountdown("countdown", "2027-01-16", "Homecoming");
-updateCountdown("fallCountdown", "2026-09-26", "US Fall Dance");
-updateCountdown("promCountdown", "2027-04-17", "Prom");
-}
-}
-
-/* =========================
-   NEW: REAL EVENT DATES
-========================= */
-
-function getEventDates() {
-  return {
-    fallDance: "September 26, 2026",   // US Fall Dance (Fall Formal)
-    prom: "April 17, 2027"
-  };
+  updateCountdown("fallCountdown", "2026-09-26", "US Fall Dance");
+  updateCountdown("promCountdown", "2027-04-17", "Prom");
 }
 
 /* =========================
@@ -153,20 +147,17 @@ function getEventDates() {
 
 window.onload = function () {
   updateBudget();
-  updateCountdown();
-
-  const dates = getEventDates();
 
   document.getElementById("predictionText").innerText = getPrediction();
 
-  // UPDATED REAL EVENTS
+  // event text
   document.getElementById("fallFormal").innerText =
-    "US Fall Dance: " + dates.fallDance;
+    "US Fall Dance: September 26, 2026";
 
   document.getElementById("prom").innerText =
-    "Prom: " + dates.prom;
+    "Prom: April 17, 2027";
 
-  setInterval(updateCountdown, 86400000); // daily update
-  updateFallCountdown();
-setInterval(updateFallCountdown, 86400000);
+  // countdowns
+  updateAllCountdowns();
+  setInterval(updateAllCountdowns, 86400000);
 };
