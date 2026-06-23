@@ -167,4 +167,6 @@ window.onload = function () {
     "Prom: " + dates.prom;
 
   setInterval(updateCountdown, 86400000); // daily update
+  updateFallCountdown();
+setInterval(updateFallCountdown, 86400000);
 };
