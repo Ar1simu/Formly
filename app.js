@@ -121,16 +121,19 @@ function getPrediction() {
    LIVE COUNTDOWN (HOME PAGE)
 ========================= */
 
-function updateCountdown() {
-  const target = new Date("2027-01-16T00:00:00");
+function updateCountdown(id, date, label) {
+  const target = new Date(date);
   const now = new Date();
 
   const diff = target - now;
-
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-  document.getElementById("countdown").innerText =
-    days + " days until Homecoming";
+  document.getElementById(id).innerText =
+    days + " days until " + label;
+  updateCountdown("countdown", "2027-01-16", "Homecoming");
+updateCountdown("fallCountdown", "2026-09-26", "US Fall Dance");
+updateCountdown("promCountdown", "2027-04-17", "Prom");
+}
 }
 
 /* =========================
