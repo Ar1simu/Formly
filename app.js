@@ -1,3 +1,4 @@
+```javascript
 function showPage(pageId) {
   const pages = document.querySelectorAll(".page");
 
@@ -103,18 +104,40 @@ function toggleMode() {
 
 function getPrediction() {
   const now = new Date();
-  const month = now.getMonth();
-
-  if (month >= 5 && month <= 7) {
-    return "Off-season (June–August): No dance cycle active.";
-  }
-
-  const homecoming = new Date("2027-01-16");
   const today = new Date();
 
-  const diff = Math.floor((homecoming - today) / (1000 * 60 * 60 * 24));
+  const fallFormal = new Date("2026-09-26");
+  const homecoming = new Date("2027-01-16");
+  const prom = new Date("2027-04-17");
 
-  return `Homecoming: Jan 16, 2027 | ${diff} days remaining | Typical window: 90–100 days pre-event`;
+  // Fall Formal cycle
+  if (today < fallFormal) {
+    const diff = Math.floor(
+      (fallFormal - today) / (1000 * 60 * 60 * 24)
+    );
+
+    return `Fall Formal: Sep 26, 2026 | ${diff} days remaining | Theme: Rio de Janeiro | Prediction engine: ON`;
+  }
+
+  // Homecoming cycle
+  if (today < homecoming) {
+    const diff = Math.floor(
+      (homecoming - today) / (1000 * 60 * 60 * 24)
+    );
+
+    return `Homecoming: Jan 16, 2027 | ${diff} days remaining | Prediction engine: ON`;
+  }
+
+  // Prom cycle
+  if (today < prom) {
+    const diff = Math.floor(
+      (prom - today) / (1000 * 60 * 60 * 24)
+    );
+
+    return `Prom: Apr 17, 2027 | ${diff} days remaining | Prediction engine: ON`;
+  }
+
+  return "Dance season complete.";
 }
 
 /* =========================
@@ -152,7 +175,7 @@ window.onload = function () {
 
   // event text
   document.getElementById("fallFormal").innerText =
-    "US Fall Dance: September 26, 2026";
+    "US Fall Dance: September 26, 2026 | Theme: Rio de Janeiro";
 
   document.getElementById("prom").innerText =
     "Prom: April 17, 2027";
@@ -161,3 +184,4 @@ window.onload = function () {
   updateAllCountdowns();
   setInterval(updateAllCountdowns, 86400000);
 };
+```
