@@ -1,4 +1,3 @@
-```javascript
 function showPage(pageId) {
   const pages = document.querySelectorAll(".page");
 
@@ -7,8 +6,148 @@ function showPage(pageId) {
 }
 
 /* =========================
+   EVENT DATA
+========================= */
+
+const eventData = {
+  fallFormal: {
+    name: "US Fall Dance",
+    shortName: "Fall Formal",
+    date: "2026-09-26",
+    theme: "Rio de Janeiro",
+    venue: "The Gregory School",
+    ticket: 20,
+    accent: "rio"
+  },
+
+  homecoming: {
+    name: "Homecoming",
+    shortName: "Homecoming",
+    date: "2027-01-16",
+    theme: null,
+    venue: null,
+    ticket: null,
+    accent: "default"
+  },
+
+  prom: {
+    name: "Prom",
+    shortName: "Prom",
+    date: "2027-04-17",
+    theme: null,
+    venue: null,
+    ticket: null,
+    accent: "default"
+  }
+};
+
+/* =========================
+   HOMEPAGE EVENT DISPLAY
+========================= */
+
+function updateEventDisplay() {
+  const fall = eventData.fallFormal;
+  const homecoming = eventData.homecoming;
+  const prom = eventData.prom;
+
+  const fallElement = document.getElementById("fallFormal");
+  const homecomingElement = document.getElementById("homecoming");
+  const promElement = document.getElementById("prom");
+
+  if (fallElement) {
+    fallElement.innerText =
+      `${fall.name}: September 26, 2026 | Theme: ${fall.theme} | Venue: ${fall.venue} | Ticket: $${fall.ticket}`;
+  }
+
+  if (homecomingElement) {
+    let text = `${homecoming.name}: January 16, 2027`;
+
+    if (homecoming.theme) {
+      text += ` | Theme: ${homecoming.theme}`;
+    }
+
+    if (homecoming.venue) {
+      text += ` | Venue: ${homecoming.venue}`;
+    }
+
+    if (homecoming.ticket !== null) {
+      text += ` | Ticket: $${homecoming.ticket}`;
+    }
+
+    homecomingElement.innerText = text;
+  }
+
+  if (promElement) {
+    let text = `${prom.name}: April 17, 2027`;
+
+    if (prom.theme) {
+      text += ` | Theme: ${prom.theme}`;
+    }
+
+    if (prom.venue) {
+      text += ` | Venue: ${prom.venue}`;
+    }
+
+    if (prom.ticket !== null) {
+      text += ` | Ticket: $${prom.ticket}`;
+    }
+
+    promElement.innerText = text;
+  }
+}
+
+/* =========================
+   HOMEPAGE THEMING
+========================= */
+
+function updateHomepageTheme() {
+  const today = new Date();
+
+  const fallFormal = new Date(eventData.fallFormal.date);
+  const homecoming = new Date(eventData.homecoming.date);
+  const prom = new Date(eventData.prom.date);
+
+  let activeEvent;
+
+  if (today < fallFormal) {
+    activeEvent = eventData.fallFormal;
+  } else if (today < homecoming) {
+    activeEvent = eventData.homecoming;
+  } else if (today < prom) {
+    activeEvent = eventData.prom;
+  } else {
+    activeEvent = null;
+  }
+
+  const homepage = document.body;
+
+  if (!homepage) return;
+
+  // Remove previous event themes
+  homepage.classList.remove(
+    "theme-rio",
+    "theme-homecoming",
+    "theme-prom",
+    "theme-default"
+  );
+
+  if (!activeEvent) {
+    homepage.classList.add("theme-default");
+    return;
+  }
+
+  // Apply current event theme
+  homepage.classList.add(`theme-${activeEvent.accent}`);
+
+  // Store event information for CSS/other scripts
+  homepage.dataset.activeEvent = activeEvent.shortName;
+  homepage.dataset.eventTheme = activeEvent.theme || "none";
+}
+
+/* =========================
    BUDGET
 ========================= */
+
 function updateBudget() {
   let ticket = +document.getElementById("ticketSlider").value;
   let outfit = +document.getElementById("outfitSlider").value;
@@ -103,12 +242,11 @@ function toggleMode() {
 ========================= */
 
 function getPrediction() {
-  const now = new Date();
   const today = new Date();
 
-  const fallFormal = new Date("2026-09-26");
-  const homecoming = new Date("2027-01-16");
-  const prom = new Date("2027-04-17");
+  const fallFormal = new Date(eventData.fallFormal.date);
+  const homecoming = new Date(eventData.homecoming.date);
+  const prom = new Date(eventData.prom.date);
 
   // Fall Formal cycle
   if (today < fallFormal) {
@@ -116,7 +254,7 @@ function getPrediction() {
       (fallFormal - today) / (1000 * 60 * 60 * 24)
     );
 
-    return `Fall Formal: Sep 26, 2026 | ${diff} days remaining | Theme: Rio de Janeiro | Prediction engine: ON`;
+    return `Fall Formal: Sep 26, 2026 | ${diff} days remaining | Theme: Rio de Janeiro | Venue: The Gregory School | Ticket: $20 | Prediction engine: ON`;
   }
 
   // Homecoming cycle
@@ -159,9 +297,9 @@ function updateCountdown(id, date, label) {
 
 /* wrappers */
 function updateAllCountdowns() {
-  updateCountdown("countdown", "2027-01-16", "Homecoming");
-  updateCountdown("fallCountdown", "2026-09-26", "US Fall Dance");
-  updateCountdown("promCountdown", "2027-04-17", "Prom");
+  updateCountdown("countdown", eventData.homecoming.date, "Homecoming");
+  updateCountdown("fallCountdown", eventData.fallFormal.date, "US Fall Dance");
+  updateCountdown("promCountdown", eventData.prom.date, "Prom");
 }
 
 /* =========================
@@ -171,17 +309,22 @@ function updateAllCountdowns() {
 window.onload = function () {
   updateBudget();
 
-  document.getElementById("predictionText").innerText = getPrediction();
+  // Event information
+  updateEventDisplay();
 
-  // event text
-  document.getElementById("fallFormal").innerText =
-    "US Fall Dance: September 26, 2026 | Theme: Rio de Janeiro";
+  // Dynamic homepage theme
+  updateHomepageTheme();
 
-  document.getElementById("prom").innerText =
-    "Prom: April 17, 2027";
+  // Prediction engine
+  const predictionText = document.getElementById("predictionText");
+
+  if (predictionText) {
+    predictionText.innerText = getPrediction();
+  }
 
   // countdowns
   updateAllCountdowns();
+
   setInterval(updateAllCountdowns, 86400000);
+  setInterval(updateHomepageTheme, 86400000);
 };
-```
