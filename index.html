@@ -27,15 +27,45 @@
 <main>
 
 <!-- ================= HOME ================= -->
-<section id="home" class="page active">
+<section id="home" class="page active event-theme">
+
   <div class="hero">
     <h1>Formly</h1>
     <p>Plan school dances before they happen.</p>
   </div>
 
+  <!-- ================= ACTIVE EVENT ================= -->
+  <div class="card event-card active-event">
+    <h2>🇧🇷 Fall Formal</h2>
+
+    <p id="fallFormal">
+      US Fall Dance: September 26, 2026
+    </p>
+
+    <p id="fallTheme">
+      Theme: Rio de Janeiro
+    </p>
+
+    <p id="fallVenue">
+      Venue: The Gregory School
+    </p>
+
+    <p id="fallTicket">
+      Ticket: $20
+    </p>
+  </div>
+
+  <!-- ================= PREDICTION ================= -->
   <div class="card">
     <h2>📅 Prediction System</h2>
     <p id="predictionText"></p>
+  </div>
+
+  <!-- ================= COUNTDOWNS ================= -->
+
+  <div class="card">
+    <h2>🎃 US Fall Dance Countdown</h2>
+    <p id="fallCountdown"></p>
   </div>
 
   <div class="card">
@@ -44,127 +74,261 @@
   </div>
 
   <div class="card">
-    <h2>🎃 US Fall Dance Countdown</h2>
-    <p id="fallCountdown"></p>
-  </div>
-
-  <div class="card">
     <h2>💃 Prom Countdown</h2>
     <p id="promCountdown"></p>
   </div>
+
+  <!-- ================= SYSTEM STATUS ================= -->
 
   <div class="card advanced" style="display:none;">
     <h2>📊 Live System Status</h2>
     <p>Formly systems running normally.</p>
   </div>
+
 </section>
+
 
 <!-- ================= EVENTS ================= -->
 <section id="events" class="page">
+
   <h2>Events</h2>
 
-  <div class="card">
+  <!-- FALL FORMAL -->
+  <div class="card event-card fall-event">
+
+    <h3>🇧🇷 US Fall Dance</h3>
+
+    <p id="fallFormal">
+      September 26th, 2026
+    </p>
+
+    <p>
+      <strong>Theme:</strong> Rio de Janeiro
+    </p>
+
+    <p>
+      <strong>Venue:</strong> The Gregory School
+    </p>
+
+    <p>
+      <strong>Ticket:</strong> $20
+    </p>
+
+  </div>
+
+
+  <!-- HOMECOMING -->
+  <div class="card event-card homecoming-event">
+
     <h3>Homecoming</h3>
-    <p>January 16th, 2027</p>
+
+    <p id="homecoming">
+      January 16th, 2027
+    </p>
+
+    <p>
+      <strong>Theme:</strong> TBD
+    </p>
+
+    <p>
+      <strong>Venue:</strong> TBD
+    </p>
+
+    <p>
+      <strong>Ticket:</strong> TBD
+    </p>
+
   </div>
 
-  <div class="card">
-    <h3>US Fall Dance</h3>
-    <p>September 26th, 2026</p>
+
+  <!-- PROM -->
+  <div class="card event-card prom-event">
+
+    <h3>💃 Prom</h3>
+
+    <p id="prom">
+      April 17th, 2027
+    </p>
+
+    <p>
+      <strong>Theme:</strong> TBD
+    </p>
+
+    <p>
+      <strong>Venue:</strong> TBD
+    </p>
+
+    <p>
+      <strong>Ticket:</strong> TBD
+    </p>
+
   </div>
 
-  <div class="card">
-    <h3>Prom</h3>
-    <p>April 17th, 2027</p>
-  </div>
 </section>
+
 
 <!-- ================= BUDGET ================= -->
 <section id="budget" class="page">
+
   <h2>Budget Planner</h2>
 
   <div class="card">
 
     <h3>Ticket</h3>
-    <input type="range" min="0" max="200" value="40" id="ticketSlider" oninput="updateBudget()">
-    <p id="ticketValue">$40</p>
+
+    <input
+      type="range"
+      min="0"
+      max="200"
+      value="20"
+      id="ticketSlider"
+      oninput="updateBudget()"
+    >
+
+    <p id="ticketValue">$20</p>
+
 
     <h3>Outfit</h3>
-    <input type="range" min="0" max="2500" value="120" id="outfitSlider" oninput="updateBudget()">
+
+    <input
+      type="range"
+      min="0"
+      max="2500"
+      value="120"
+      id="outfitSlider"
+      oninput="updateBudget()"
+    >
+
     <p id="outfitValue">$120</p>
 
+
     <h3>Food</h3>
-    <input type="range" min="0" max="1000" value="25" id="foodSlider" oninput="updateBudget()">
+
+    <input
+      type="range"
+      min="0"
+      max="1000"
+      value="25"
+      id="foodSlider"
+      oninput="updateBudget()"
+    >
+
     <p id="foodValue">$25</p>
 
+
     <h3>Extras</h3>
-    <input type="range" min="0" max="1000" value="30" id="extrasSlider" oninput="updateBudget()">
+
+    <input
+      type="range"
+      min="0"
+      max="1000"
+      value="30"
+      id="extrasSlider"
+      oninput="updateBudget()"
+    >
+
     <p id="extrasValue">$30</p>
+
 
     <hr>
 
     <h3>Total</h3>
+
     <p id="totalCost">$0</p>
+
     <p id="budgetRange"></p>
 
   </div>
+
 </section>
+
 
 <!-- ================= OUTFITS ================= -->
 <section id="outfits" class="page">
+
   <h2>Outfit Builder</h2>
 
   <div class="card">
 
     <h3>Select Style</h3>
+
     <select id="outfitType">
-      <option value="casual">Casual (Business Casual)</option>
-      <option value="semiformal">Semi-Formal</option>
-      <option value="formal">Formal</option>
+      <option value="casual">
+        Casual (Business Casual)
+      </option>
+
+      <option value="semiformal">
+        Semi-Formal
+      </option>
+
+      <option value="formal">
+        Formal
+      </option>
     </select>
 
-    <button onclick="generateOutfit()">Generate Outfit</button>
+    <button onclick="generateOutfit()">
+      Generate Outfit
+    </button>
 
     <p id="outfitResult"></p>
 
   </div>
+
 </section>
+
 
 <!-- ================= ETIQUETTE ================= -->
 <section id="etiquette" class="page">
+
   <h2>Etiquette</h2>
 
   <div class="card">
-    <button onclick="showEtiquette()">Show Rules</button>
+
+    <button onclick="showEtiquette()">
+      Show Rules
+    </button>
 
     <div id="etiquetteBox" class="hidden">
+
       <p>
         • Be respectful to others and staff<br>
         • Dress appropriately for the venue<br>
         • Don’t stress—enjoy the night<br>
         • Be mindful of time and plans<br><br>
+
         Good luck and have an amazing night :)
       </p>
+
     </div>
+
   </div>
+
 </section>
+
 
 <!-- ================= SETTINGS ================= -->
 <section id="settings" class="page">
+
   <h2>Settings</h2>
 
   <div class="card">
-    <button onclick="toggleMode()">Toggle Advanced Mode</button>
+
+    <button onclick="toggleMode()">
+      Toggle Advanced Mode
+    </button>
 
     <p class="advanced" style="display:none;">
       Advanced Mode Enabled:<br>
       Extra UI elements + system diagnostics visible.
     </p>
+
   </div>
+
 </section>
 
 </main>
 
 <script src="app.js"></script>
+
 </body>
 </html>
