@@ -1,332 +1,975 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Formly</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap" rel="stylesheet">
+  <meta
+    name="description"
+    content="Formly helps students plan school dances, manage budgets, explore outfits, and analyze historical event themes."
+  >
+
+  <meta name="theme-color" content="#171717">
+
+  <title>Formly — School Dance Planner</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
 <header class="nav">
   <div class="logo">Formly</div>
 
-  <nav>
-    <button onclick="showPage('home')">Home</button>
-    <button onclick="showPage('events')">Events</button>
-    <button onclick="showPage('budget')">Budget</button>
-    <button onclick="showPage('outfits')">Outfits</button>
-    <button onclick="showPage('etiquette')">Etiquette</button>
-    <button onclick="showPage('settings')">Settings</button>
+  <nav aria-label="Main navigation">
+    <button type="button" onclick="showPage('home')">Home</button>
+    <button type="button" onclick="showPage('events')">Events</button>
+    <button type="button" onclick="showPage('budget')">Budget</button>
+    <button type="button" onclick="showPage('outfits')">Outfits</button>
+    <button type="button" onclick="showPage('etiquette')">Etiquette</button>
+    <button type="button" onclick="showPage('settings')">Settings</button>
+
+    <button
+      type="button"
+      class="advanced"
+      onclick="showPage('adminPage')"
+      hidden
+    >
+      Admin Console
+    </button>
   </nav>
 </header>
 
 <main>
 
-<!-- ================= HOME ================= -->
-<section id="home" class="page active event-theme">
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section
+  id="home"
+  class="page active event-theme"
+  aria-labelledby="homeHeading"
+>
 
   <div class="hero">
-    <h1>Formly</h1>
+    <h1 id="homeHeading">Formly</h1>
     <p>Plan school dances before they happen.</p>
+    <p>Organize your plans. Prepare your budget. Enjoy the night.</p>
   </div>
 
-  <!-- ================= ACTIVE EVENT ================= -->
-  <div class="card event-card active-event">
-    <h2>🇧🇷 Fall Formal</h2>
+  <!-- Featured event is populated by app.js -->
 
-    <p id="fallFormal">
-      US Fall Dance: September 26, 2026
+  <article class="card event-card active-event">
+    <h2 id="featuredEventName">Loading next event...</h2>
+
+    <p>
+      <strong>Date:</strong>
+      <span id="featuredEventDate">Loading...</span>
     </p>
 
-    <p id="fallTheme">
-      Theme: Rio de Janeiro
+    <p>
+      <strong>Theme:</strong>
+      <span id="featuredEventTheme">TBD</span>
     </p>
 
-    <p id="fallVenue">
-      Venue: The Gregory School
+    <p>
+      <strong>Venue:</strong>
+      <span id="featuredEventVenue">TBD</span>
     </p>
 
-    <p id="fallTicket">
-      Ticket: $20
+    <p>
+      <strong>Ticket:</strong>
+      <span id="featuredEventTicket">TBD</span>
     </p>
-  </div>
 
-  <!-- ================= PREDICTION ================= -->
-  <div class="card">
-    <h2>📅 Prediction System</h2>
-    <p id="predictionText"></p>
-  </div>
+    <p>
+      <strong>Status:</strong>
+      <span id="featuredEventStatus">Loading...</span>
+    </p>
+  </article>
 
-  <!-- ================= COUNTDOWNS ================= -->
+  <!-- General event summary -->
 
-  <div class="card">
-    <h2>🎃 US Fall Dance Countdown</h2>
-    <p id="fallCountdown"></p>
-  </div>
+  <article class="card">
+    <h2>📅 Event Overview</h2>
+    <p id="predictionText">Loading event information...</p>
+  </article>
 
-  <div class="card">
-    <h2>⏳ Homecoming Countdown</h2>
-    <p id="countdown"></p>
-  </div>
+  <!-- Countdown cards -->
 
-  <div class="card">
-    <h2>💃 Prom Countdown</h2>
-    <p id="promCountdown"></p>
-  </div>
+  <article class="card">
+    <h2>🎃 US Fall Dance</h2>
+    <p id="fallCountdown">Loading countdown...</p>
+  </article>
 
-  <!-- ================= SYSTEM STATUS ================= -->
+  <article class="card">
+    <h2>⏳ Homecoming</h2>
+    <p id="countdown">Loading countdown...</p>
+  </article>
 
-  <div class="card advanced" style="display:none;">
-    <h2>📊 Live System Status</h2>
-    <p>Formly systems running normally.</p>
-  </div>
+  <article class="card">
+    <h2>💃 Prom</h2>
+    <p id="promCountdown">Loading countdown...</p>
+  </article>
+
+  <!-- Advanced system information -->
+
+  <article class="card advanced" hidden>
+    <h2>📊 System Status</h2>
+
+    <p id="advancedModeStatus">Standard Mode</p>
+    <p id="adminAccessStatus">Admin workspace hidden</p>
+
+    <p>
+      Application version:
+      <span id="adminVersion">0.8.0-alpha</span>
+    </p>
+
+    <p>
+      Note: browser-side status checks do not verify a remote server.
+    </p>
+  </article>
 
 </section>
 
 
-<!-- ================= EVENTS ================= -->
-<section id="events" class="page">
+<!-- =====================================================
+     EVENTS
+===================================================== -->
 
-  <h2>Events</h2>
+<section
+  id="events"
+  class="page"
+  aria-labelledby="eventsHeading"
+>
 
-  <!-- FALL FORMAL -->
-  <div class="card event-card fall-event">
+  <h2 id="eventsHeading">Events</h2>
 
+  <p>
+    Dates and details may be tentative. Confirm official information
+    with the school before making plans.
+  </p>
+
+  <!-- Fall Dance -->
+
+  <article class="card event-card fall-event">
     <h3>🇧🇷 US Fall Dance</h3>
 
-    <p id="fallFormal">
-      September 26th, 2026
-    </p>
+    <p id="fallFormal">Loading event information...</p>
 
-    <p>
-      <strong>Theme:</strong> Rio de Janeiro
-    </p>
+    <p><strong>Theme:</strong> Rio de Janeiro</p>
+    <p><strong>Venue:</strong> The Gregory School</p>
+    <p><strong>Ticket:</strong> $20</p>
+  </article>
 
-    <p>
-      <strong>Venue:</strong> The Gregory School
-    </p>
+  <!-- Homecoming -->
 
-    <p>
-      <strong>Ticket:</strong> $20
-    </p>
-
-  </div>
-
-
-  <!-- HOMECOMING -->
-  <div class="card event-card homecoming-event">
-
+  <article class="card event-card homecoming-event">
     <h3>Homecoming</h3>
 
-    <p id="homecoming">
-      January 16th, 2027
-    </p>
+    <p id="homecoming">Loading event information...</p>
 
-    <p>
-      <strong>Theme:</strong> TBD
-    </p>
+    <p><strong>Theme:</strong> TBD</p>
+    <p><strong>Venue:</strong> TBD</p>
+    <p><strong>Ticket:</strong> TBD</p>
+  </article>
 
-    <p>
-      <strong>Venue:</strong> TBD
-    </p>
+  <!-- Prom -->
 
-    <p>
-      <strong>Ticket:</strong> TBD
-    </p>
-
-  </div>
-
-
-  <!-- PROM -->
-  <div class="card event-card prom-event">
-
+  <article class="card event-card prom-event">
     <h3>💃 Prom</h3>
 
-    <p id="prom">
-      April 17th, 2027
-    </p>
+    <p id="prom">Loading event information...</p>
 
-    <p>
-      <strong>Theme:</strong> TBD
-    </p>
-
-    <p>
-      <strong>Venue:</strong> TBD
-    </p>
-
-    <p>
-      <strong>Ticket:</strong> TBD
-    </p>
-
-  </div>
+    <p><strong>Theme:</strong> TBD</p>
+    <p><strong>Venue:</strong> TBD</p>
+    <p><strong>Ticket:</strong> TBD</p>
+  </article>
 
 </section>
 
 
-<!-- ================= BUDGET ================= -->
-<section id="budget" class="page">
+<!-- =====================================================
+     BUDGET
+===================================================== -->
 
-  <h2>Budget Planner</h2>
+<section
+  id="budget"
+  class="page"
+  aria-labelledby="budgetHeading"
+>
 
-  <div class="card">
+  <h2 id="budgetHeading">Budget Planner</h2>
 
-    <h3>Ticket</h3>
+  <p>Adjust the sliders to estimate your total dance expenses.</p>
 
-    <input
-      type="range"
-      min="0"
-      max="200"
-      value="20"
-      id="ticketSlider"
-      oninput="updateBudget()"
-    >
+  <article class="card">
 
-    <p id="ticketValue">$20</p>
+    <div class="budget-field">
+      <label for="ticketSlider">Ticket</label>
 
+      <input
+        type="range"
+        min="0"
+        max="200"
+        step="1"
+        value="20"
+        id="ticketSlider"
+      >
 
-    <h3>Outfit</h3>
+      <output id="ticketValue" for="ticketSlider">$20.00</output>
+    </div>
 
-    <input
-      type="range"
-      min="0"
-      max="2500"
-      value="120"
-      id="outfitSlider"
-      oninput="updateBudget()"
-    >
+    <div class="budget-field">
+      <label for="outfitSlider">Outfit</label>
 
-    <p id="outfitValue">$120</p>
+      <input
+        type="range"
+        min="0"
+        max="2500"
+        step="5"
+        value="120"
+        id="outfitSlider"
+      >
 
+      <output id="outfitValue" for="outfitSlider">$120.00</output>
+    </div>
 
-    <h3>Food</h3>
+    <div class="budget-field">
+      <label for="foodSlider">Food</label>
 
-    <input
-      type="range"
-      min="0"
-      max="1000"
-      value="25"
-      id="foodSlider"
-      oninput="updateBudget()"
-    >
+      <input
+        type="range"
+        min="0"
+        max="1000"
+        step="1"
+        value="25"
+        id="foodSlider"
+      >
 
-    <p id="foodValue">$25</p>
+      <output id="foodValue" for="foodSlider">$25.00</output>
+    </div>
 
+    <div class="budget-field">
+      <label for="extrasSlider">Extras</label>
 
-    <h3>Extras</h3>
+      <input
+        type="range"
+        min="0"
+        max="1000"
+        step="1"
+        value="30"
+        id="extrasSlider"
+      >
 
-    <input
-      type="range"
-      min="0"
-      max="1000"
-      value="30"
-      id="extrasSlider"
-      oninput="updateBudget()"
-    >
-
-    <p id="extrasValue">$30</p>
-
+      <output id="extrasValue" for="extrasSlider">$30.00</output>
+    </div>
 
     <hr>
 
-    <h3>Total</h3>
+    <h3>Estimated Total</h3>
 
-    <p id="totalCost">$0</p>
+    <p id="totalCost">$195.00</p>
+    <p id="budgetRange">Low Range</p>
 
-    <p id="budgetRange"></p>
+    <div class="budget-field">
+      <label for="budgetLimit">Optional spending limit</label>
 
-  </div>
+      <input
+        type="number"
+        id="budgetLimit"
+        min="0"
+        step="1"
+        placeholder="Enter a spending limit"
+      >
+
+      <p>
+        Remaining:
+        <output id="budgetRemaining">—</output>
+      </p>
+    </div>
+
+    <p>
+      These estimates are planning tools, not actual transactions.
+    </p>
+
+  </article>
 
 </section>
 
 
-<!-- ================= OUTFITS ================= -->
-<section id="outfits" class="page">
+<!-- =====================================================
+     OUTFIT BUILDER
+===================================================== -->
 
-  <h2>Outfit Builder</h2>
+<section
+  id="outfits"
+  class="page"
+  aria-labelledby="outfitsHeading"
+>
 
-  <div class="card">
+  <h2 id="outfitsHeading">Outfit Builder</h2>
 
-    <h3>Select Style</h3>
+  <article class="card">
+
+    <label for="outfitType">Select a style</label>
 
     <select id="outfitType">
-      <option value="casual">
-        Casual (Business Casual)
-      </option>
-
-      <option value="semiformal">
-        Semi-Formal
-      </option>
-
-      <option value="formal">
-        Formal
-      </option>
+      <option value="casual">Casual / Business Casual</option>
+      <option value="semiformal">Semi-Formal</option>
+      <option value="formal">Formal</option>
     </select>
 
-    <button onclick="generateOutfit()">
+    <button type="button" onclick="generateOutfit()">
       Generate Outfit
     </button>
 
-    <p id="outfitResult"></p>
+    <p id="outfitResult" aria-live="polite"></p>
 
-  </div>
+  </article>
 
 </section>
 
 
-<!-- ================= ETIQUETTE ================= -->
-<section id="etiquette" class="page">
+<!-- =====================================================
+     ETIQUETTE
+===================================================== -->
 
-  <h2>Etiquette</h2>
+<section
+  id="etiquette"
+  class="page"
+  aria-labelledby="etiquetteHeading"
+>
 
-  <div class="card">
+  <h2 id="etiquetteHeading">Etiquette</h2>
 
-    <button onclick="showEtiquette()">
-      Show Rules
+  <article class="card">
+
+    <button
+      type="button"
+      onclick="showEtiquette()"
+      aria-controls="etiquetteBox"
+    >
+      Show / Hide Rules
     </button>
 
-    <div id="etiquetteBox" class="hidden">
+    <div id="etiquetteBox" class="hidden" aria-hidden="true">
 
-      <p>
-        • Be respectful to others and staff<br>
-        • Dress appropriately for the venue<br>
-        • Don’t stress—enjoy the night<br>
-        • Be mindful of time and plans<br><br>
+      <h3>Dance Night Guidelines</h3>
 
-        Good luck and have an amazing night :)
-      </p>
+      <ul>
+        <li>Be respectful to other students and staff.</li>
+        <li>Follow the venue's dress code and school rules.</li>
+        <li>Respect people's boundaries and personal space.</li>
+        <li>Be mindful of transportation and arrival plans.</li>
+        <li>Keep track of personal belongings.</li>
+        <li>Enjoy the night and look out for your friends.</li>
+      </ul>
+
+      <p>Have an amazing night!</p>
 
     </div>
 
-  </div>
+  </article>
 
 </section>
 
 
-<!-- ================= SETTINGS ================= -->
-<section id="settings" class="page">
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
 
-  <h2>Settings</h2>
+<section
+  id="settings"
+  class="page"
+  aria-labelledby="settingsHeading"
+>
 
-  <div class="card">
+  <h2 id="settingsHeading">Settings</h2>
 
-    <button onclick="toggleMode()">
+  <article class="card">
+
+    <h3>Application</h3>
+
+    <p>
+      Version:
+      <strong>Alpha 0.8.0</strong>
+    </p>
+
+    <p>
+      Administrative Expansion
+    </p>
+
+  </article>
+
+  <article class="card">
+
+    <h3>Advanced Mode</h3>
+
+    <p>
+      Advanced Mode reveals the local administrative workspace,
+      historical theme archive, prediction tools, and diagnostics.
+    </p>
+
+    <p>
+      This browser-side switch is not a secure login system.
+    </p>
+
+    <div class="setting-field">
+      <label for="advancedModeToggle">
+        Enable Advanced Mode
+      </label>
+
+      <input
+        type="checkbox"
+        id="advancedModeToggle"
+        aria-describedby="advancedModeDescription"
+      >
+    </div>
+
+    <p id="advancedModeDescription">
+      Turn this off to hide the administrative interface.
+    </p>
+
+    <p id="advancedModeStatus" aria-live="polite">
+      Standard Mode
+    </p>
+
+    <p id="adminAccessStatus">
+      Admin workspace hidden
+    </p>
+
+    <button type="button" onclick="toggleMode()">
       Toggle Advanced Mode
     </button>
 
-    <p class="advanced" style="display:none;">
-      Advanced Mode Enabled:<br>
-      Extra UI elements + system diagnostics visible.
+  </article>
+
+  <article class="card">
+
+    <h3>Data and Privacy</h3>
+
+    <ul>
+      <li>Event records are stored in this browser.</li>
+      <li>Data may not appear on another device or browser.</li>
+      <li>Clearing browser data may remove locally saved records.</li>
+      <li>Export a backup before making major changes.</li>
+    </ul>
+
+  </article>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN CONSOLE
+     Hidden unless Advanced Mode is enabled
+===================================================== -->
+
+<section
+  id="adminPage"
+  class="page advanced"
+  aria-labelledby="adminHeading"
+  hidden
+>
+
+  <div class="hero">
+    <h1 id="adminHeading">Formly Admin Console</h1>
+
+    <p>Administrative Expansion · Alpha 0.8.0</p>
+
+    <p>
+      Manage events, curate historical data, analyze themes,
+      and inspect application data.
+    </p>
+  </div>
+
+
+  <!-- ADMIN OVERVIEW -->
+
+  <article class="card">
+
+    <h2>System Overview</h2>
+
+    <p>
+      Application version:
+      <strong id="adminVersion">0.8.0-alpha</strong>
     </p>
 
-  </div>
+    <p>
+      Configured events:
+      <strong id="adminEventCount">0</strong>
+    </p>
+
+    <p>
+      Historical theme records:
+      <strong id="adminHistoricalThemeCount">0</strong>
+    </p>
+
+    <p>
+      Next upcoming event:
+      <strong id="adminNextEvent">Loading...</strong>
+    </p>
+
+    <button type="button" onclick="runDiagnostics()">
+      Run Diagnostics
+    </button>
+
+  </article>
+
+
+  <!-- EVENT MANAGEMENT -->
+
+  <article class="card">
+
+    <h2>Event Management</h2>
+
+    <p>
+      Create events or select an existing record to edit it.
+      Confirm dates and event details before publishing them.
+    </p>
+
+    <h3>Existing Events</h3>
+
+    <div id="adminEventList" aria-live="polite">
+      <p>Loading events...</p>
+    </div>
+
+    <hr>
+
+    <h3>Create / Edit Event</h3>
+
+    <form id="adminEventForm">
+
+      <div class="admin-form-field">
+        <label for="adminEventId">Event ID</label>
+
+        <input
+          type="text"
+          id="adminEventId"
+          placeholder="Leave blank to create a new event"
+        >
+
+        <p>
+          When editing, use the existing ID. Avoid changing IDs
+          after an event has been created.
+        </p>
+      </div>
+
+      <div class="admin-form-field">
+        <label for="adminEventName">Event name</label>
+
+        <input
+          type="text"
+          id="adminEventName"
+          required
+          placeholder="e.g. Winter Formal"
+        >
+      </div>
+
+      <div class="admin-form-field">
+        <label for="adminEventShortName">Short name</label>
+
+        <input
+          type="text"
+          id="adminEventShortName"
+          placeholder="e.g. Winter Formal"
+        >
+      </div>
+
+      <div class="admin-form-field">
+        <label for="adminEventDate">Event date</label>
+
+        <input
+          type="date"
+          id="adminEventDate"
+          required
+        >
+      </div>
+
+      <div class="admin-form-field">
+        <label for="adminEventTheme">Theme</label>
+
+        <input
+          type="text"
+          id="adminEventTheme"
+          placeholder="Leave blank if unannounced"
+        >
+      </div>
+
+      <div class="admin-form-field">
+        <label for="adminEventVenue">Venue</label>
+
+        <input
+          type="text"
+          id="adminEventVenue"
+          placeholder="Leave blank if unannounced"
+        >
+      </div>
+
+      <div class="admin-form-field">
+        <label for="adminEventTicket">Ticket price in USD</label>
+
+        <input
+          type="number"
+          id="adminEventTicket"
+          min="0"
+          step="0.01"
+          placeholder="Leave blank if unannounced"
+        >
+      </div>
+
+      <div class="admin-form-field">
+        <label for="adminEventAccent">Theme accent key</label>
+
+        <select id="adminEventAccent">
+          <option value="default">Default</option>
+          <option value="rio">Rio</option>
+          <option value="homecoming">Homecoming</option>
+          <option value="prom">Prom</option>
+        </select>
+      </div>
+
+      <div class="admin-form-field">
+        <label for="adminEventType">Event type</label>
+
+        <select id="adminEventType">
+          <option value="fall">Fall Dance</option>
+          <option value="homecoming">Homecoming</option>
+          <option value="winter">Winter Dance</option>
+          <option value="formal">Formal</option>
+          <option value="prom">Prom</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="admin-form-field">
+        <label for="adminEventStatus">Record status</label>
+
+        <select id="adminEventStatus">
+          <option value="predicted">Predicted</option>
+          <option value="tentative">Tentative</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+
+      <button type="submit">Save Event</button>
+
+      <button
+        type="button"
+        onclick="getElementById('adminEventForm').reset()"
+      >
+        Clear Form
+      </button>
+
+    </form>
+
+  </article>
+
+
+  <!-- HISTORICAL THEME ARCHIVE -->
+
+  <article class="card">
+
+    <h2>Historical Dance Theme Archive</h2>
+
+    <p>
+      Enter the actual themes from your freshman through senior
+      years. Your planned archive covers approximately October 2023
+      through September 2026.
+    </p>
+
+    <p>
+      Do not fill gaps with guesses. If a theme is unknown, leave
+      that event out until you can verify it.
+    </p>
+
+    <h3>Add Historical Record</h3>
+
+    <form id="historicalThemeForm">
+
+      <div class="admin-form-field">
+        <label for="historicalThemeDate">Event date</label>
+
+        <input
+          type="date"
+          id="historicalThemeDate"
+          required
+        >
+      </div>
+
+      <div class="admin-form-field">
+        <label for="historicalThemeEventName">Event name</label>
+
+        <input
+          type="text"
+          id="historicalThemeEventName"
+          required
+          placeholder="e.g. Fall Dance"
+        >
+      </div>
+
+      <div class="admin-form-field">
+        <label for="historicalThemeEventType">Event type</label>
+
+        <select id="historicalThemeEventType">
+          <option value="fall">Fall Dance</option>
+          <option value="homecoming">Homecoming</option>
+          <option value="winter">Winter Dance</option>
+          <option value="formal">Formal</option>
+          <option value="prom">Prom</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="admin-form-field">
+        <label for="historicalThemeName">Official theme</label>
+
+        <input
+          type="text"
+          id="historicalThemeName"
+          required
+          placeholder="Enter the actual theme"
+        >
+      </div>
+
+      <div class="admin-form-field">
+        <label for="historicalThemeCategory">
+          Category (optional)
+        </label>
+
+        <select id="historicalThemeCategory">
+          <option value="">Auto-classify</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Cultural">Cultural / Destination</option>
+          <option value="Era">Historical Era / Retro</option>
+          <option value="Nature">Nature / Celestial</option>
+          <option value="Glamour">Glamour / Elegance</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="admin-form-field">
+        <label for="historicalThemeNotes">Notes (optional)</label>
+
+        <textarea
+          id="historicalThemeNotes"
+          rows="3"
+          placeholder="Source, announcement, or other context"
+        ></textarea>
+      </div>
+
+      <button type="submit">Add Historical Theme</button>
+
+    </form>
+
+    <hr>
+
+    <h3>Saved Historical Records</h3>
+
+    <div id="historicalThemeList" aria-live="polite">
+      <p>No records loaded.</p>
+    </div>
+
+  </article>
+
+
+  <!-- THEME PREDICTION ENGINE -->
+
+  <article class="card">
+
+    <h2>Private Theme Prediction Workspace</h2>
+
+    <p>
+      Use the historical archive to explore recurring theme
+      categories and repeated themes.
+    </p>
+
+    <p>
+      Results are exploratory. Historical frequency does not
+      establish the probability that school organizers will
+      choose a particular theme.
+    </p>
+
+    <div class="admin-form-field">
+      <label for="predictionTargetEvent">Target event</label>
+
+      <select id="predictionTargetEvent">
+        <option value="homecoming">Homecoming</option>
+        <option value="prom">Prom</option>
+        <option value="fallFormal">US Fall Dance</option>
+      </select>
+    </div>
+
+    <button type="button" id="runThemePrediction">
+      Analyze Historical Themes
+    </button>
+
+    <div
+      id="themePredictionResults"
+      aria-live="polite"
+    >
+      <p>
+        Add historical records, then run the analysis.
+      </p>
+    </div>
+
+  </article>
+
+
+  <!-- PREDICTION SETTINGS -->
+
+  <article class="card">
+
+    <h2>Prediction Settings</h2>
+
+    <p>
+      Enable or disable the local prediction interface.
+    </p>
+
+    <div class="setting-field">
+      <label for="predictionEnabledToggle">
+        Enable theme analysis
+      </label>
+
+      <input
+        type="checkbox"
+        id="predictionEnabledToggle"
+        checked
+      >
+    </div>
+
+    <p>
+      Disabling the interface does not remove historical data.
+    </p>
+
+  </article>
+
+
+  <!-- DIAGNOSTICS -->
+
+  <article class="card">
+
+    <h2>Diagnostics</h2>
+
+    <p>
+      Checks local event records and historical theme entries for
+      common validation issues.
+    </p>
+
+    <button type="button" id="runDiagnostics">
+      Run Diagnostics
+    </button>
+
+    <h3>Errors</h3>
+
+    <pre id="diagnosticsErrors">Not run yet.</pre>
+
+    <h3>Warnings</h3>
+
+    <pre id="diagnosticsWarnings">Not run yet.</pre>
+
+    <p>
+      Last run:
+      <span id="diagnosticsLastRun">Not run yet.</span>
+    </p>
+
+  </article>
+
+
+  <!-- DATA MANAGEMENT -->
+
+  <article class="card">
+
+    <h2>Data Management</h2>
+
+    <p>
+      Export a JSON backup before making major changes or importing
+      another backup.
+    </p>
+
+    <button type="button" id="exportFormlyData">
+      Export Formly Backup
+    </button>
+
+    <div class="admin-form-field">
+      <label for="importFormlyData">Import a Formly backup</label>
+
+      <input
+        type="file"
+        id="importFormlyData"
+        accept=".json,application/json"
+      >
+    </div>
+
+    <p>
+      Importing replaces the current browser's saved event and theme
+      records after confirmation.
+    </p>
+
+  </article>
+
+
+  <!-- ADMIN NOTICE -->
+
+  <article class="card">
+
+    <h2>Administrative Security Notice</h2>
+
+    <p>
+      This release stores records in browser-local storage.
+      Advanced Mode is a user-interface toggle, not authentication.
+    </p>
+
+    <p>
+      Because this app is hosted as a static website, visitors may
+      inspect client-side JavaScript and locally stored data.
+      Do not enter sensitive information into this workspace.
+    </p>
+
+    <p>
+      A future authenticated backend is required for genuinely
+      administrator-only access to prediction data.
+    </p>
+
+    <button type="button" onclick="showPage('settings')">
+      Return to Settings
+    </button>
+
+  </article>
 
 </section>
 
 </main>
+
+
+<!-- =====================================================
+     GLOBAL NOTIFICATIONS
+===================================================== -->
+
+<div
+  id="formlyNotification"
+  role="status"
+  aria-live="polite"
+  hidden
+></div>
+
+
+<!-- =====================================================
+     SCRIPTS
+===================================================== -->
 
 <script src="app.js"></script>
 
